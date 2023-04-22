@@ -1,17 +1,23 @@
 import {useState} from 'react';
 
-export default function Wizard({states}) {
+
+
+
+
+
+
+export default function Wizard({states,titolo}) {
     const [iterator, setIterator] = useState(0)
 
     const handleIndietro = () => {
-        setIterator(i => i - 1);
+        setIterator(iterator -1);
     }
     const handleAvanti = () => {
 
         setIterator(i => i + 1);
     }
     return <>
-        <h1>Wizard</h1>
+        <h1>{titolo}</h1>
         {states[iterator % states.length]}
         <br/>
         <div>
