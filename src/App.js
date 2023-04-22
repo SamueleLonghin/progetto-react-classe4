@@ -7,11 +7,23 @@ import Form from "./components/Form";
 import Wizard from "./components/Wizard";
 
 import {useState} from "react";
+import YoutubeVideoEncoder from "./components/YoutubeVideoEncoder";
+import Downloader from "./components/Downloader";
+import Navigazione from "./components/Navigazione";
+import Timer from "./components/Timer";
 
 function App() {
-    const [view, setView] = useState('inizio')
+    const [view, setView] = useState('wizard')
     let content;
-
+    const states = [
+        <Timer amount={10} onFinish={() => alert("CIAO BELLOOO")}/>,
+        <Counter span={3} testo={"Componente counter di 3"}/>,
+        <Persona data={{firstName: "Gino"}}/>,
+        <Download/>,
+        <Form action={"https://echo.samuelelonghin.it?asJson=1"} method={'POST'}/>,
+        <YoutubeVideoEncoder/>,
+        <Downloader/>
+    ]
 
     if (view === 'inizio')
         content = <>
@@ -23,25 +35,20 @@ function App() {
             <Download/>
             <Persona data={""}/>
 
-            <Form action={"https://echo.samuelelonghin.it?asJson=1"} method={'POST'}></Form>
-            <Form action={"http://localhost:8008/echo"} method={'POST'}></Form>
+            <Form action={"https://echo.samuelelonghin.it?asJson=1"} method={'POST'}/>
+            {/*<Form action={"http://localhost:8008/echo"} method={'POST'}></Form>*/}
         </>
+    else if (view === 'wizard')
+        content = <Wizard states={states}/>
     else
-        content = <Wizard states={[
-            <Counter span={3} testo={"Componente counter di 3"}/>,
-            <Persona data={{firstName: "Gino"}}/>,
-            <Download/>
-        ]}/>
+        content = <YoutubeVideoEncoder/>
 
     return (
         <div className="App">
             <header className="App-header">
                 {content}
 
-                <div>
-                    <button onClick={() => setView('wizard')}>Classico</button>
-                    <button onClick={() => setView('wizard')}>Wizard</button>
-                </div>
+                {/*<Navigazione setView={setView}/>*/}
             </header>
         </div>
     );

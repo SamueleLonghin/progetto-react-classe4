@@ -11,10 +11,12 @@ export default function Wizard({states}) {
         setIterator(i => i + 1);
     }
     return <>
+        <h1>Wizard</h1>
         {states[iterator % states.length]}
         <br/>
         <div>
             <button onClick={handleIndietro}>Indietro</button>
+            <> pagina {iterator % states.length} </>
             <button onClick={handleAvanti}>Avanti</button>
         </div>
     </>

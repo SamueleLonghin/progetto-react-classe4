@@ -8,7 +8,6 @@ export default function Download() {
     let scarica = () => {
 
 
-
         fetch("/users.json")
             .then(res => res.json())
             .then(
@@ -30,17 +29,23 @@ export default function Download() {
             )
 
 
-
     }
 
     let button = <button onClick={scarica}>Scarica</button>
 
     // useEffect(scarica,[]) // viene eseguito all'inizio del programma
     if (error)
-        return <div>Error</div>
+        return <>
+            <h2>Pagina di download json</h2>
+            <div>Error</div>
+        </>
     if (!isLoaded)
-        return <div>{button}</div>;
+        return <>
+            <h2>Pagina di download json</h2>
+            <div>{button}</div>
+        </>
     return <div>
+        <h2>Pagina di download json</h2>
         {button}
         <div>
             <ul>

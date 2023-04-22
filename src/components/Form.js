@@ -4,13 +4,14 @@ import axios from "axios";
 export default function Form({action, method = 'POST'}) {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [response, setResponse] = useState(null);
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const dati = {
-            username: username, password: password
+            username: username,
+            password: password
         };
-
 
         if (method === 'POST') {
             /**
@@ -29,7 +30,10 @@ export default function Form({action, method = 'POST'}) {
                 };
             // Make request
             axios.post(action, dati, POST_headers)
-                .then(r => console.log("POST", r))
+                .then(r => {
+                    setResponse(r.data)
+                    console.log("POST", r)
+                })
                 .catch(e => console.error("POST", e))
         } else {
             /**
@@ -51,24 +55,28 @@ export default function Form({action, method = 'POST'}) {
         setUsername(e.target.value)
     }
 
-    return <form onSubmit={handleSubmit}>
-        <label>Enter your name:
-            <input
-                type="text"
-                name="username"
-                value={username}
-                onChange={handleChangeUsername}
-            />
-        </label>
-        <label>Enter your age:
-            <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-            />
-        </label>
-        <input type="submit"/>
-    </form>
+    return <>
+        <h2>Form</h2>
+        <form onSubmit={handleSubmit}>
+            <label>Enter your name:
+                <input
+                    type="text"
+                    name="username"
+                    value={username}
+                    onChange={handleChangeUsername}
+                />
+            </label>
+            <label>Enter your age:
+                <input
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+            </label>
+            <input type="submit"/>
+        </form>
+        {response ? JSON.stringify(response) : ''}
+    </>
 
 }

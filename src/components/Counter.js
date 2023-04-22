@@ -12,8 +12,8 @@ export default function Counter({span, testo = "Counter base"}) {
     }
 
 
-
     return <div>
+        <h2>Counter</h2>
         <button onClick={updateC}>
             {testo}: {c}
         </button>
