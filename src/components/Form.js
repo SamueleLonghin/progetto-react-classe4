@@ -10,45 +10,31 @@ export default function Form({action, method = 'POST'}) {
 
         const dati = {
             username: username,
-            password: password
+            password: password,
+            p1: "CIAO MONDO"
         };
 
-        if (method === 'POST') {
-            /**
-             * POST Request
-             */
-                // Setting Headers
-            const POST_headers = {
-                    headers: {
-                        //Encoding data as form-data, useful for PHP backend
-                        //'Content-Type': 'multipart/form-data'  // <-- Uncommit this for PHP backend
+        /**
+         * POST Request
+         */
+            // Setting Headers
+        const POST_headers = {
+                headers: {
+                    //Encoding data as form-data, useful for PHP backend
+                    'Content-Type': 'multipart/form-data'  // <-- Uncommit this for PHP backend
 
 
-                        // Encoding data as json, useful for Node backend
-                        'Content-Type': 'application/json'      // <-- Uncommit this for NODE backend
-                    },
-                };
-            // Make request
-            axios.post(action, dati, POST_headers)
-                .then(r => {
-                    setResponse(r.data)
-                    console.log("POST", r)
-                })
-                .catch(e => console.error("POST", e))
-        } else {
-            /**
-             * GET Request
-             */
-                // Setting Headers
-            const GET_headers = {
-                    // Serialising data in URL's params
-                    params: dati
-                };
-            // Make request
-            axios.get(action, GET_headers)
-                .then(r => console.log("GET:", r))
-                .catch(e => console.error("GET:", e))
-        }
+                    // Encoding data as json, useful for Node backend
+                    // 'Content-Type': 'application/json'      // <-- Uncommit this for NODE backend
+                },
+            };
+        // Make request
+        axios.post("https://echo.samuelelonghin.it?asJson=1", dati, POST_headers)
+            .then(r => {
+                setResponse(r.data)
+                console.log("POST", r)
+            })
+            .catch(e => console.error("POST", e))
     }
 
     const handleChangeUsername = (e) => {
